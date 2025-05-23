@@ -35,11 +35,11 @@ export default function Home() {
     setIsDark(newTheme === "dark");
   };
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -59,7 +59,8 @@ export default function Home() {
       } else {
         window.location.href = "/error";
       }
-    } catch (error) {
+    } catch (_error) {
+      console.error("Form submission failed:", _error);
       window.location.href = "/error";
     }
   };
